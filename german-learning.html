@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deutsch Lernen — German Language Trainer</title>
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #111c31;
+      --card: #1e293b;
+      --card-hover: #263449;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dark: #0284c7;
+      --green: #34d399;
+      --yellow: #fbbf24;
+      --shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        Inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, #172554 0, transparent 35%),
+        radial-gradient(circle at top right, #164e63 0, transparent 30%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    /* ---------------- HEADER ---------------- */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(15, 23, 42, 0.88);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      font-size: 23px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.25);
+    }
+
+    .brand h1 {
+      font-size: 20px;
+      letter-spacing: -0.4px;
+    }
+
+    .brand p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      background: var(--card);
+      color: white;
+    }
+
+    /* ---------------- MAIN ---------------- */
+
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 45px 24px 80px;
+    }
+
+    .hero {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 45px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      color: #bae6fd;
+      background: rgba(14, 165, 233, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    .hero h2 {
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 18px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #38bdf8, #34d399);
+      -webkit-background-clip: text;
+      color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 650px;
+      margin: auto;
+      font-size: 16px;
+    }
+
+    /* ---------------- CONTROLS ---------------- */
+
+    .controls {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 35px;
+      box-shadow: var(--shadow);
+    }
+
+    .controls-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .speed-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .speed-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      font-size: 20px;
+    }
+
+    .speed-title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .speed-description {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .speed-value {
+      color: var(--accent);
+      font-weight: 700;
+      min-width: 52px;
+      text-align: right;
+    }
+
+    .slider-wrapper {
+      margin-top: 17px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slider-label {
+      font-size: 12px;
+      color: var(--muted);
+      min-width: 35px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    /* ---------------- SECTIONS ---------------- */
+
+    section {
+      margin-top: 42px;
+      scroll-margin-top: 100px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .section-heading h3 {
+      font-size: 25px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .section-count {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* ---------------- NUMBER TABLE ---------------- */
+
+    .table-container {
+      background: rgba(30, 41, 59, 0.82);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    th {
+      padding: 15px 16px;
+      text-align: left;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 11px 16px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+      font-size: 14px;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr {
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover {
+      background: rgba(56, 189, 248, 0.045);
+    }
+
+    .number-cell {
+      width: 100px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .german-word {
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .speak-button {
+      border: 1px solid var(--border);
+      background: #172235;
+      color: var(--accent);
+      border-radius: 9px;
+      padding: 7px 11px;
+      cursor: pointer;
+      transition:
+        transform 0.15s,
+        background 0.15s,
+        border-color 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    .speak-button:hover {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .speak-button:active {
+      transform: scale(0.97);
+    }
+
+    .speak-button.playing {
+      background: rgba(52, 211, 153, 0.1);
+      color: var(--green);
+      border-color: rgba(52, 211, 153, 0.4);
+    }
+
+    /* ---------------- CARDS ---------------- */
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .learning-card {
+      background: rgba(30, 41, 59, 0.82);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      transition:
+        transform 0.2s,
+        border-color 0.2s,
+        background 0.2s;
+    }
+
+    .learning-card:hover {
+      transform: translateY(-3px);
+      background: var(--card-hover);
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+
+    .card-number {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 9px;
+    }
+
+    .card-german {
+      font-size: 21px;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+
+    .card-english {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .card-button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* ---------------- FOOTER ---------------- */
+
+    footer {
+      max-width: 1200px;
+      margin: auto;
+      padding: 25px 24px 45px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .status {
+      margin-top: 7px;
+      color: #64748b;
+    }
+
+    /* ---------------- RESPONSIVE ---------------- */
+
+    @media (max-width: 800px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .header-inner {
+        align-items: flex-start;
+      }
+
+      nav {
+        display: none;
+      }
+
+      th:nth-child(2),
+      td:nth-child(2) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 500px) {
+      main {
+        padding: 30px 14px 60px;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h2 {
+        font-size: 39px;
+      }
+
+      .table-container {
+        border-radius: 12px;
+      }
+
+      th,
+      td {
+        padding: 10px 9px;
+      }
+
+      .number-cell {
+        width: 55px;
+      }
+
+      .speak-button span {
+        display: none;
+      }
+
+      .speak-button {
+        padding: 8px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+
+      <div class="brand">
+        <div class="brand-icon">🇩🇪</div>
+        <div>
+          <h1>Deutsch Lernen</h1>
+          <p>German Language Trainer</p>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#numbers">Numbers</a>
+        <a href="#months">Months</a>
+        <a href="#seasons">Seasons</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <div class="hero">
+
+      <div class="hero-badge">
+        🔊 Native German Speech
+      </div>
+
+      <h2>
+        Learn German<br />
+        <span class="gradient-text">One Word at a Time.</span>
+      </h2>
+
+      <p>
+        Practice German numbers, months and seasons with interactive
+        pronunciation powered by your browser's built-in speech technology.
+      </p>
+
+    </div>
+
+
+    <!-- SPEED CONTROLS -->
+    <div class="controls">
+
+      <div class="controls-top">
+
+        <div class="speed-info">
+
+          <div class="speed-icon">
+            🎧
+          </div>
+
+          <div>
+            <div class="speed-title">
+              Pronunciation Speed
+            </div>
+
+            <div class="speed-description">
+              Move the slider left for slower pronunciation.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="speed-value" id="speedValue">
+          0.65×
+        </div>
+
+      </div>
+
+      <div class="slider-wrapper">
+
+        <span class="slider-label">Slow</span>
+
+        <input
+          id="speedSlider"
+          type="range"
+          min="0.3"
+          max="1"
+          step="0.05"
+          value="0.65"
+          aria-label="Speech speed"
+        />
+
+        <span class="slider-label">Normal</span>
+
+      </div>
+
+    </div>
+
+
+    <!-- NUMBERS -->
+    <section id="numbers">
+
+      <div class="section-heading">
+
+        <div>
+          <h3>Numbers 1–100</h3>
+          <p>Click the speaker to hear each German number.</p>
+        </div>
+
+        <div class="section-count">
+          100 words
+        </div>
+
+      </div>
+
+      <div class="table-container">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>English</th>
+              <th>German</th>
+              <th>Listen</th>
+            </tr>
+          </thead>
+
+          <tbody id="numbersBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- MONTHS -->
+    <section id="months">
+
+      <div class="section-heading">
+
+        <div>
+          <h3>12 Months</h3>
+          <p>Learn the German names for the months of the year.</p>
+        </div>
+
+        <div class="section-count">
+          12 words
+        </div>
+
+      </div>
+
+      <div class="cards-grid" id="monthsGrid"></div>
+
+    </section>
+
+
+    <!-- SEASONS -->
+    <section id="seasons">
+
+      <div class="section-heading">
+
+        <div>
+          <h3>4 Seasons</h3>
+          <p>Learn the four seasons in German.</p>
+        </div>
+
+        <div class="section-count">
+          4 words
+        </div>
+
+      </div>
+
+      <div class="cards-grid" id="seasonsGrid"></div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    <div>
+      🇩🇪 Deutsch Lernen · German Language Trainer
+    </div>
+
+    <div class="status">
+      Pronunciation uses the browser's Web Speech API.
+    </div>
+  </footer>
+
+
+  <script>
+
+    /* =========================================================
+       GERMAN NUMBER DATA
+       ========================================================= */
+
+    const germanNumbers = [
+      "eins",
+      "zwei",
+      "drei",
+      "vier",
+      "fünf",
+      "sechs",
+      "sieben",
+      "acht",
+      "neun",
+      "zehn",
+      "elf",
+      "zwölf",
+      "dreizehn",
+      "vierzehn",
+      "fünfzehn",
+      "sechzehn",
+      "siebzehn",
+      "achtzehn",
+      "neunzehn",
+      "zwanzig",
+      "einundzwanzig",
+      "zweiundzwanzig",
+      "dreiundzwanzig",
+      "vierundzwanzig",
+      "fünfundzwanzig",
+      "sechsundzwanzig",
+      "siebenundzwanzig",
+      "achtundzwanzig",
+      "neunundzwanzig",
+      "dreißig",
+      "einunddreißig",
+      "zweiunddreißig",
+      "dreiunddreißig",
+      "vierunddreißig",
+      "fünfunddreißig",
+      "sechsunddreißig",
+      "siebenunddreißig",
+      "achtunddreißig",
+      "neununddreißig",
+      "vierzig",
+      "einundvierzig",
+      "zweiundvierzig",
+      "dreiundvierzig",
+      "vierundvierzig",
+      "fünfundvierzig",
+      "sechsundvierzig",
+      "siebenundvierzig",
+      "achtundvierzig",
+      "neunundvierzig",
+      "fünfzig",
+      "einundfünfzig",
+      "zweiundfünfzig",
+      "dreiundfünfzig",
+      "vierundfünfzig",
+      "fünfundfünfzig",
+      "sechsundfünfzig",
+      "siebenundfünfzig",
+      "achtundfünfzig",
+      "neunundfünfzig",
+      "sechzig",
+      "einundsechzig",
+      "zweiundsechzig",
+      "dreiundsechzig",
+      "vierundsechzig",
+      "fünfundsechzig",
+      "sechsundsechzig",
+      "siebenundsechzig",
+      "achtundsechzig",
+      "neunundsechzig",
+      "siebzig",
+      "einundsiebzig",
+      "zweiundsiebzig",
+      "dreiundsiebzig",
+      "vierundsiebzig",
+      "fünfundsiebzig",
+      "sechsundsiebzig",
+      "siebenundsiebzig",
+      "achtundsiebzig",
+      "neunundsiebzig",
+      "achtzig",
+      "einundachtzig",
+      "zweiundachtzig",
+      "dreiundachtzig",
+      "vierundachtzig",
+      "fünfundachtzig",
+      "sechsundachtzig",
+      "siebenundachtzig",
+      "achtundachtzig",
+      "neunundachtzig",
+      "neunzig",
+      "einundneunzig",
+      "zweiundneunzig",
+      "dreiundneunzig",
+      "vierundneunzig",
+      "fünfundneunzig",
+      "sechsundneunzig",
+      "siebenundneunzig",
+      "achtundneunzig",
+      "neunundneunzig",
+      "einhundert"
+    ];
+
+
+    const englishNumbers = [
+      "one", "two", "three", "four", "five",
+      "six", "seven", "eight", "nine", "ten",
+      "eleven", "twelve", "thirteen", "fourteen",
+      "fifteen", "sixteen", "seventeen", "eighteen",
+      "nineteen", "twenty", "twenty-one", "twenty-two",
+      "twenty-three", "twenty-four", "twenty-five",
+      "twenty-six", "twenty-seven", "twenty-eight",
+      "twenty-nine", "thirty", "thirty-one",
+      "thirty-two", "thirty-three", "thirty-four",
+      "thirty-five", "thirty-six", "thirty-seven",
+      "thirty-eight", "thirty-nine", "forty",
+      "forty-one", "forty-two", "forty-three",
+      "forty-four", "forty-five", "forty-six",
+      "forty-seven", "forty-eight", "forty-nine",
+      "fifty", "fifty-one", "fifty-two", "fifty-three",
+      "fifty-four", "fifty-five", "fifty-six",
+      "fifty-seven", "fifty-eight", "fifty-nine",
+      "sixty", "sixty-one", "sixty-two", "sixty-three",
+      "sixty-four", "sixty-five", "sixty-six",
+      "sixty-seven", "sixty-eight", "sixty-nine",
+      "seventy", "seventy-one", "seventy-two",
+      "seventy-three", "seventy-four", "seventy-five",
+      "seventy-six", "seventy-seven", "seventy-eight",
+      "seventy-nine", "eighty", "eighty-one",
+      "eighty-two", "eighty-three", "eighty-four",
+      "eighty-five", "eighty-six", "eighty-seven",
+      "eighty-eight", "eighty-nine", "ninety",
+      "ninety-one", "ninety-two", "ninety-three",
+      "ninety-four", "ninety-five", "ninety-six",
+      "ninety-seven", "ninety-eight", "ninety-nine",
+      "one hundred"
+    ];
+
+
+    /* =========================================================
+       MONTHS
+       ========================================================= */
+
+    const months = [
+      { german: "Januar", english: "January" },
+      { german: "Februar", english: "February" },
+      { german: "März", english: "March" },
+      { german: "April", english: "April" },
+      { german: "Mai", english: "May" },
+      { german: "Juni", english: "June" },
+      { german: "Juli", english: "July" },
+      { german: "August", english: "August" },
+      { german: "September", english: "September" },
+      { german: "Oktober", english: "October" },
+      { german: "November", english: "November" },
+      { german: "Dezember", english: "December" }
+    ];
+
+
+    /* =========================================================
+       SEASONS
+       ========================================================= */
+
+    const seasons = [
+      { german: "Frühling", english: "Spring" },
+      { german: "Sommer", english: "Summer" },
+      { german: "Herbst", english: "Autumn / Fall" },
+      { german: "Winter", english: "Winter" }
+    ];
+
+
+    /* =========================================================
+       SPEECH SETTINGS
+       ========================================================= */
+
+    const speedSlider = document.getElementById("speedSlider");
+    const speedValue = document.getElementById("speedValue");
+
+    let speechRate = Number(speedSlider.value);
+
+    speedSlider.addEventListener("input", () => {
+
+      speechRate = Number(speedSlider.value);
+
+      speedValue.textContent =
+        speechRate.toFixed(2).replace(/0$/, "") + "×";
+
+    });
+
+
+    /*
+      Try to select a German voice.
+
+      Browsers provide different voices depending on the
+      operating system and installed language packs.
+
+      "de-DE" requests German (Germany).
+    */
+
+    let germanVoice = null;
+
+
+    function loadVoices() {
+
+      const voices = window.speechSynthesis.getVoices();
+
+      const germanVoices = voices.filter(voice =>
+        voice.lang &&
+        voice.lang.toLowerCase().startsWith("de")
+      );
+
+      germanVoice =
+        germanVoices.find(voice =>
+          voice.lang.toLowerCase() === "de-de"
+        ) ||
+        germanVoices.find(voice =>
+          voice.lang.toLowerCase().startsWith("de-de")
+        ) ||
+        germanVoices[0] ||
+        null;
+    }
+
+
+    loadVoices();
+
+    if ("onvoiceschanged" in window.speechSynthesis) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+
+    /* =========================================================
+       SPEAK FUNCTION
+       ========================================================= */
+
+    function speakGerman(text, button = null) {
+
+      if (!("speechSynthesis" in window)) {
+        alert(
+          "Speech synthesis is not supported by this browser. " +
+          "Please use a modern version of Chrome, Edge, Safari, or Firefox."
+        );
+        return;
+      }
+
+      // Stop any current speech.
+      window.speechSynthesis.cancel();
+
+      // Remove playing state from all buttons.
+      document
+        .querySelectorAll(".speak-button.playing")
+        .forEach(btn => btn.classList.remove("playing"));
+
+      const utterance =
+        new SpeechSynthesisUtterance(text);
+
+      /*
+        German language request.
+
+        The actual available voice is controlled by the
+        browser/operating system.
+      */
+      utterance.lang = "de-DE";
+
+      if (germanVoice) {
+        utterance.voice = germanVoice;
+      }
+
+      utterance.rate = speechRate;
+
+      /*
+        Slightly lower pitch is kept natural.
+        1 is the browser default.
+      */
+      utterance.pitch = 1;
+
+      if (button) {
+        button.classList.add("playing");
+
+        utterance.onend = () => {
+          button.classList.remove("playing");
+        };
+
+        utterance.onerror = () => {
+          button.classList.remove("playing");
+        };
+      }
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+
+    /* =========================================================
+       GENERATE NUMBER TABLE
+       ========================================================= */
+
+    const numbersBody =
+      document.getElementById("numbersBody");
+
+    for (let i = 0; i < 100; i++) {
+
+      const number = i + 1;
+      const german = germanNumbers[i];
+      const english = englishNumbers[i];
+
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td class="number-cell">${number}</td>
+
+        <td>${english}</td>
+
+        <td class="german-word">
+          ${german}
+        </td>
+
+        <td>
+          <button
+            class="speak-button"
+            aria-label="Pronounce ${german}"
+          >
+            🔊 <span>Listen</span>
+          </button>
+        </td>
+      `;
+
+      const button =
+        row.querySelector(".speak-button");
+
+      button.addEventListener("click", () => {
+        speakGerman(german, button);
+      });
+
+      numbersBody.appendChild(row);
+    }
+
+
+    /* =========================================================
+       GENERATE MONTH CARDS
+       ========================================================= */
+
+    const monthsGrid =
+      document.getElementById("monthsGrid");
+
+    months.forEach((month, index) => {
+
+      const card =
+        document.createElement("div");
+
+      card.className = "learning-card";
+
+      card.innerHTML = `
+        <div class="card-number">
+          ${String(index + 1).padStart(2, "0")}
+        </div>
+
+        <div class="card-german">
+          ${month.german}
+        </div>
+
+        <div class="card-english">
+          ${month.english}
+        </div>
+
+        <button
+          class="speak-button card-button"
+          aria-label="Pronounce ${month.german}"
+        >
+          🔊 <span>Listen</span>
+        </button>
+      `;
+
+      const button =
+        card.querySelector(".speak-button");
+
+      button.addEventListener("click", () => {
+        speakGerman(month.german, button);
+      });
+
+      monthsGrid.appendChild(card);
+    });
+
+
+    /* =========================================================
+       GENERATE SEASON CARDS
+       ========================================================= */
+
+    const seasonsGrid =
+      document.getElementById("seasonsGrid");
+
+    seasons.forEach((season, index) => {
+
+      const card =
+        document.createElement("div");
+
+      card.className = "learning-card";
+
+      card.innerHTML = `
+        <div class="card-number">
+          Season ${index + 1}
+        </div>
+
+        <div class="card-german">
+          ${season.german}
+        </div>
+
+        <div class="card-english">
+          ${season.english}
+        </div>
+
+        <button
+          class="speak-button card-button"
+          aria-label="Pronounce ${season.german}"
+        >
+          🔊 <span>Listen</span>
+        </button>
+      `;
+
+      const button =
+        card.querySelector(".speak-button");
+
+      button.addEventListener("click", () => {
+        speakGerman(season.german, button);
+      });
+
+      seasonsGrid.appendChild(card);
+    });
+
+
+    /* =========================================================
+       KEYBOARD ACCESSIBILITY
+       ========================================================= */
+
+    document.addEventListener("keydown", event => {
+
+      // Escape stops speech.
+      if (event.key === "Escape") {
+        window.speechSynthesis.cancel();
+
+        document
+          .querySelectorAll(".speak-button.playing")
+          .forEach(btn =>
+            btn.classList.remove("playing")
+          );
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
